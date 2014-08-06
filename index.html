@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset='utf-8'>
+		<script src="js/three.min.js"></script>
+		<script src="js/OrbitControls.js"></script>
+		<link rel="stylesheet" href="css/css.css">
+	</head>
+	<body>
+		<div id="render"></div>	
+	</body>
+	<script>
+		//==================Variables=======================
+		//preparamos el render
+		var Render=new THREE.WebGLRenderer();
+		//el escenario
+		var Escenario=new THREE.Scene();
+		//la figura
+		var Figura;
+		//controls
+		var controls;
+		var Ancho=window.innerWidth-15;
+		var Alto=window.innerHeight-10;
+			
+		var Angulo = 45;	
+		var Aspecto=Ancho/Alto;
+		var cerca=0.1;
+		var lejos=10000;
+		//La cámara
+		var Camara=new THREE.PerspectiveCamera(Angulo,Aspecto,cerca,lejos);
+		//==================funcuiones=======================
+
+		inicio();
+		animacion();
+
+		//==================inicio=======================
+
+		function inicio()
+		{
+		    //tamaño del render
+		    Render.setSize(300,300);
+		    //se agrega el render al doc html
+		    document.getElementById('render').appendChild(Render.domElement);
+		    //Acercarmos la camara en z es profundidad para ver el punto
+		    Camara.position.z=100;
+		    //agregando la camara al escenario
+		    Escenario.add(Camara);
+		    //territorio
+		    crear_plano();
+		    //carga de los modelos
+		    cargar_modelo();
+		    //creamos los contoles
+		    controls=new THREE.OrbitControls(Camara,Render.domElement);
+		}
+		function cargar_modelo()
+		{
+		    //geometria
+		    Geometria=new THREE.Geometry();
+		    var vertices=[
+		                 [2,7,0],
+		                 [7,2,0],
+		                 [12,7,0],
+		                 [12,17,0],
+		                 [7,12,0],
+		                 [2,17,0],
+		                 [2,7,0],
+		                 [2,7,2],
+		                 [7,2,2],
+		                 [12,7,2],
+		                 [12,17,2],
+		                 [7,12,2],
+		                 [2,17,2],
+		                 [2,7,2]
+		    ];
+		    var long_vertices=vertices.length;
+		    for(i=0;i<long_vertices;i++)
+		        {
+		            x=vertices[i][0];
+		            y=vertices[i][1];
+		            z=vertices[i][2];
+		            //add vertices al vector
+		            Vector=new THREE.Vector3(x,y,z);
+		            //add vector a la geometria
+		            Geometria.vertices.push(Vector);
+		    }
+		    //agregando al escenario el punto o particula
+		    Material=new THREE.ParticleBasicMaterial({color:0XFF0000});
+		    //creamos una particula con la geometria y el material
+		    Figura=new THREE.Line(Geometria,Material);
+		    //add partitula o figura al escenario
+		    Escenario.add(Figura);
+		}
+		function crear_plano()
+		{
+			//geometria del plano
+			Geometria_plano=new THREE.PlaneGeometry(100,100,10,10);
+			//textura
+			Textura_plano=new THREE.ImageUtils.loadTexture("texturas/cesped.jpg");
+			Textura_plano.wrapS=Textura_plano.wrapT=THREE.RepeatWrapping;
+			Textura_plano.repeat.set(10,10);
+
+			//material y agregado textura
+			Material_plano=new THREE.MeshBasicMaterial({map:Textura_plano,side:THREE.DoubleSide});
+			//plano (territorio)
+			Territorio=new THREE.Mesh(Geometria_plano,Material_plano);
+			Escenario.add(Territorio);
+
+
+		}
+		function animacion()
+		{
+		    requestAnimationFrame(animacion);
+		    render_modelo();
+		}
+		function render_modelo()
+		{
+		    controls.update();
+		    Figura.rotation.y=Figura.rotation.y+0.01;
+		    Render.render(Escenario,Camara);
+		    
+		}
+	</script>
+</html>
