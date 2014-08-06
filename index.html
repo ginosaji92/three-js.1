@@ -43,6 +43,7 @@
 		    document.getElementById('render').appendChild(Render.domElement);
 		    //Acercarmos la camara en z es profundidad para ver el punto
 		    Camara.position.z=100;
+		    Camara.position.y=10;
 		    //agregando la camara al escenario
 		    Escenario.add(Camara);
 		    //territorio
@@ -103,7 +104,6 @@
 			Material_plano=new THREE.MeshBasicMaterial({map:Textura_plano,side:THREE.DoubleSide});
 			//plano (territorio)
 			Territorio=new THREE.Mesh(Geometria_plano,Material_plano);
-			Territorio.rotation.y=50;
 			Territorio.rotation.x=Math.PI/2;
 			Escenario.add(Territorio);
 
