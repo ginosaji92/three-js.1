@@ -65,15 +65,11 @@
 		                 [7,12,0],
 		                 [2,17,0],
 		                 [2,7,0],
-		                 [2,7,2],
-		                 [7,2,2],
-		                 [12,7,2],
-		                 [12,17,2],
-		                 [7,12,2],
-		                 [2,17,2],
-		                 [2,7,2]
+		                 
 		    ];
 		    var long_vertices=vertices.length;
+		    var array_extrude=[];
+
 		    for(i=0;i<long_vertices;i++)
 		        {
 		            x=vertices[i][0];
@@ -83,13 +79,30 @@
 		            Vector=new THREE.Vector3(x,y,z);
 		            //add vector a la geometria
 		            Geometria.vertices.push(Vector);
+		            long_vertices.push(Vector);
+
 		    }
+		    //figura
+		    var forma_figura=new THREE.Shape(array_extrude);
+		    //extrusion
+		    var datos_extrusion=
+							    {
+							    	amount:10, //cantidad de profundidad 
+							    	bevelEnable:false, // activando bisel
+							    	beveSegments:1, // segmentos del bisel
+							    	steps:5, //"profundidad y Núm. de segmentos que marcan la profundidad“
+							    	beveThickness:1 // grosor del bisel
+							    };
+			var extrude_geometria=new THREE.ExtrudeGeometry(forma_figura,datos_extrusion);
+			//la malla 
+			var mallaextrusion=new THREE.Mesh(extrude_geometria);
 		    //agregando al escenario el punto o particula
 		    Material=new THREE.ParticleBasicMaterial({color:0XFF0000});
 		    //creamos una particula con la geometria y el material
 		    Figura=new THREE.Line(Geometria,Material);
 		    //add partitula o figura al escenario
 		    Escenario.add(Figura);
+		    Escenario.add(mallaextrusion);
 		}
 		function crear_plano()
 		{
@@ -117,7 +130,7 @@
 		function render_modelo()
 		{
 		    controls.update();
-		    Figura.rotation.y=Figura.rotation.y+0.01;
+		    //Figura.rotation.y=Figura.rotation.y+0.01;
 		    Render.render(Escenario,Camara);
 		    
 		}
