@@ -85,13 +85,13 @@
 		    //figura
 		    var forma_figura=new THREE.Shape(array_extrude);
 		    //extrusion
-		    var datos_extrusion=
+		    var datos_extrusion={
 							    {
 							    	amount:10, //cantidad de profundidad 
-							    	bevelEnable:false, // activando bisel
-							    	beveSegments:1, // segmentos del bisel
+							    	bevelEnabled:false, // activando bisel
+							    	bevelSegments:1, // segmentos del bisel
 							    	steps:5, //"profundidad y Núm. de segmentos que marcan la profundidad“
-							    	beveThickness:1 // grosor del bisel
+							    	bevelThickness:1 // grosor del bisel
 							    };
 			var extrude_geometria=new THREE.ExtrudeGeometry(forma_figura,datos_extrusion);
 			//la malla 
