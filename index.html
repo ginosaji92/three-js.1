@@ -58,16 +58,7 @@
 		{
 		    //geometria
 		    Geometria=new THREE.Geometry();
-		    var vertices=[
-		                 [2,7,0],
-		                 [7,2,0],
-		                 [12,7,0],
-		                 [12,17,0],
-		                 [7,12,0],
-		                 [2,17,0],
-		                 [2,7,0]
-		                 
-		    ];
+		    var vertices=[[2,7,0],[7,2,0],[12,7,0],[12,17,0],[7,12,0],[2,17,0],[2,7,0]];
 		    var long_vertices=vertices.length;
 		    var array_extrude=[];
 
@@ -81,7 +72,6 @@
 		            //add vector a la geometria
 		            Geometria.vertices.push(Vector);
 		            array_extrude.push(Vector);
-		            long_vertices.push(Vector);
 
 		    }
 		    //figura
@@ -131,7 +121,7 @@
 		function render_modelo()
 		{
 		    controls.update();
-		    //Figura.rotation.y=Figura.rotation.y+0.01;
+		    Figura.rotation.y=Figura.rotation.y+0.01;
 		    Render.render(Escenario,Camara);
 		    
 		}
