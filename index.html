@@ -28,6 +28,7 @@
 		var lejos=10000;
 		//La cámara
 		var Camara=new THREE.PerspectiveCamera(Angulo,Aspecto,cerca,lejos);
+		THREEx.WindowResize(Render,Camara)
 		//==================funcuiones=======================
 
 		inicio();
@@ -64,7 +65,7 @@
 		                 [12,17,0],
 		                 [7,12,0],
 		                 [2,17,0],
-		                 [2,7,0],
+		                 [2,7,0]
 		                 
 		    ];
 		    var long_vertices=vertices.length;
@@ -79,18 +80,17 @@
 		            Vector=new THREE.Vector3(x,y,z);
 		            //add vector a la geometria
 		            Geometria.vertices.push(Vector);
-		            long_vertices.push(Vector);
-
+		            array_extrude.push(Vector);
 		    }
 		    //figura
 		    var forma_figura=new THREE.Shape(array_extrude);
 		    //extrusion
 		    var datos_extrusion={
-							    	amount:10, //cantidad de profundidad 
-							    	bevelEnabled:false, // activando bisel
-							    	bevelSegments:1, // segmentos del bisel
-							    	steps:5, //"profundidad y Núm. de segmentos que marcan la profundidad“
-							    	bevelThickness:1 // grosor del bisel
+							    amount:10, //cantidad de profundidad 
+							    bevelEnabled:false, // activando bisel
+							    bevelSegments:1, // segmentos del bisel
+							    steps:10, //"profundidad y Núm. de segmentos que marcan la profundidad“
+							    bevelThickness:100 // grosor del bisel
 							    };
 			var extrude_geometria=new THREE.ExtrudeGeometry(forma_figura,datos_extrusion);
 			//la malla 
