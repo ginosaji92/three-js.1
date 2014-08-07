@@ -28,6 +28,7 @@
 		var lejos=10000;
 		//La cámara
 		var Camara=new THREE.PerspectiveCamera(Angulo,Aspecto,cerca,lejos);
+		THREEx.WindowResize(Render,Camara)
 		//==================funcuiones=======================
 
 		inicio();
@@ -38,7 +39,7 @@
 		function inicio()
 		{
 		    //tamaño del render
-		    Render.setSize(300,300);
+		    Render.setSize(Alto,Ancho);
 		    //se agrega el render al doc html
 		    document.getElementById('render').appendChild(Render.domElement);
 		    //Acercarmos la camara en z es profundidad para ver el punto
